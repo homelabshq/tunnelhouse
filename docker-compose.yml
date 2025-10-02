@@ -1,0 +1,15 @@
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    env_file:
+      - .env
+    entrypoint: ["cloudflared", "tunnel", "--no-autoupdate", "run", "--token", "$TUNNEL_TOKEN"]
+    restart: always
+    networks:
+      - tunnelhouse
+
+networks:
+  tunnelhouse:
+    driver: bridge
+    name: tunnelhouse
